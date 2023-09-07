@@ -1,4 +1,5 @@
-import { getGreeting } from "./apiManager";
+import { Dogs } from "./Dogs.js";
+import { getDogs, getGreeting } from "./apiManager";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -14,5 +15,7 @@ export default function Home() {
       });
   }, []);
 
-  return <p>{greeting.message}</p>;
+
+  return <><p>{greeting.message}</p>
+  <Dogs/></>;
 }
