@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getDog } from "./apiManager.js"
+import { getDog } from "../apiManager.js"
 import { useEffect, useState } from "react"
 
 export const Dog = () => {
@@ -10,6 +10,8 @@ export const Dog = () => {
         .then(setDog)
     }, [])
 
-    return <><h1>{dog.name}</h1>
-    <p>{dog.walker?.name}</p></>
+    return <>
+    <h1>{dog.name}</h1>
+    <p>{dog.walker?.name}</p>
+    </>
 }

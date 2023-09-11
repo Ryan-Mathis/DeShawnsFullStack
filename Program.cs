@@ -98,8 +98,25 @@ app.MapGet("/api/dogs/{id}", (int id) =>
     }
     
     chosenDog.Walker = walkers.FirstOrDefault(w => w.Id == chosenDog.WalkerId);
-    
+    chosenDog.City = cities.FirstOrDefault(c => c.Id == chosenDog.CityId);
+
     return Results.Ok(chosenDog);    
+});
+
+app.MapGet("/api/walkers", () => {
+    return walkers;
+});
+
+app.MapGet("/api/cities", () => {
+    return cities;
+});
+
+app.MapPost("/api/dogs", (Dog dog) => {
+    dog.Id = dogs.Count > 0 ?dogs.Max(d => d.Id) + 1 : 1;
+    dog.Walker = walkers.FirstOrDefault(w => w.Id == dog.WalkerId);
+    dog.City = cities.FirstOrDefault(c => c.Id == dog.CityId);
+    dogs.Add(dog);
+    return dog;
 });
 
 app.Run();

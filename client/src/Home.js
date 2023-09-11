@@ -1,4 +1,4 @@
-import { Dogs } from "./Dogs.js";
+import { Dogs } from "./DogStuff/Dogs.js";
 import { getDogs, getGreeting } from "./apiManager";
 import { useEffect, useState } from "react";
 
