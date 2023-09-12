@@ -24,6 +24,27 @@ List<Dog> dogs = new List<Dog>
         Name = "Rover",
         WalkerId = 2,
         CityId = 1
+    },
+    new Dog()
+    {
+        Id = 4,
+        Name = "Tate",
+        WalkerId = 1,
+        CityId = 1
+    },
+    new Dog()
+    {
+        Id = 5,
+        Name = "Cash",
+        WalkerId = 2,
+        CityId = 2
+    },
+    new Dog()
+    {
+        Id = 6,
+        Name = "Sugar",
+        WalkerId = 3,
+        CityId = 3
     }
 };
 List<Walker> walkers = new List<Walker>
@@ -60,6 +81,45 @@ List<City> cities = new List<City>
     {
         Id = 3,
         Name = "Mount Juliet",
+    }
+};
+List<WalkerCity> walkerCities = new List<WalkerCity>
+{
+    new WalkerCity()
+    {
+        Id = 1,
+        WalkerId = 1,
+        CityId = 1
+    },
+    new WalkerCity()
+    {
+        Id = 2,
+        WalkerId = 1,
+        CityId = 3
+    },
+    new WalkerCity()
+    {
+        Id = 3,
+        WalkerId = 2,
+        CityId = 1
+    },
+    new WalkerCity()
+    {
+        Id = 4,
+        WalkerId = 2,
+        CityId = 2
+    },
+    new WalkerCity()
+    {
+        Id = 5,
+        WalkerId = 3,
+        CityId = 2
+    },
+    new WalkerCity()
+    {
+        Id = 6,
+        WalkerId = 3,
+        CityId = 3
     }
 };
 
@@ -117,6 +177,14 @@ app.MapPost("/api/dogs", (Dog dog) => {
     dog.City = cities.FirstOrDefault(c => c.Id == dog.CityId);
     dogs.Add(dog);
     return dog;
+});
+
+app.MapGet("/api/walkers/{cityId}", (int cityId) => {
+    List<Walker> walkersByCity = walkers
+    .Where(w => walkerCities.Any(wc => wc.WalkerId == w.Id && wc.CityId == cityId))
+    .ToList();
+
+    return Results.Ok(walkersByCity);
 });
 
 app.Run();
