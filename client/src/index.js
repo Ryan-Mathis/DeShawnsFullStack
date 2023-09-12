@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import Home from "./Home";
 import { Dog } from "./DogStuff/Dog.js";
 import { AddDog } from "./DogStuff/AddDog.js";
+import { Walkers } from "./WalkerStuff/Walkers.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route index element={<Home />} />
         <Route path="/dogs/:id" element={<Dog />} />
         <Route path="/addadog" element={<AddDog />} />
+        <Route path="/walkers" element={<Walkers />} />
       </Route>
     </Routes>
   </BrowserRouter>,

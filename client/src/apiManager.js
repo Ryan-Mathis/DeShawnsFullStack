@@ -36,3 +36,9 @@ export const addNewDog = async (newDog) => {
     body: JSON.stringify(newDog)
   })
 }
+
+export const getWalkersByCity = async (cityId) => {
+  const res = await fetch(`/api/walkers/${cityId}`);
+  const data = await res.json();
+  return data;
+}
