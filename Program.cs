@@ -8,7 +8,6 @@ List<Dog> dogs = new List<Dog>
     {
         Id = 1,
         Name = "Ludo",
-        WalkerId = 3,
         CityId = 2
     },
     new Dog()
@@ -43,7 +42,6 @@ List<Dog> dogs = new List<Dog>
     {
         Id = 6,
         Name = "Sugar",
-        WalkerId = 3,
         CityId = 3
     }
 };
@@ -185,6 +183,24 @@ app.MapGet("/api/walkers/{cityId}", (int cityId) => {
     .ToList();
 
     return Results.Ok(walkersByCity);
+});
+
+app.MapGet("api/assignnewdog/{walkerId}", (int walkerId) => {
+    List<Dog> dogsAvailableToWalk = dogs
+    .Where(d => walkerCities.Any(wc => wc.WalkerId != walkerId && d.WalkerId != walkerId))
+    .ToList();
+
+    return Results.Ok(dogsAvailableToWalk);
+});
+
+app.MapPost("/api/dogs/{dogId}/assign/{walkerId}", (int dogId, int walkerId) => {
+    Dog dogToBeAssigned = dogs.FirstOrDefault(d => d.Id == dogId);
+    if (dogToBeAssigned == null)
+    {
+        return Results.NotFound();
+    }
+    dogToBeAssigned.WalkerId = walkerId;
+    return Results.NoContent();
 });
 
 app.Run();
