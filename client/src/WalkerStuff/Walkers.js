@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getCities, getWalkers, getWalkersByCity } from "../apiManager.js";
-import { FormGroup, Input, Label } from "reactstrap";
+import { Button, FormGroup, Input, Label } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Walkers = () => {
 
@@ -20,31 +21,42 @@ export const Walkers = () => {
         .then(setFilteredWalkers)
     }, [cityId])
 
+    const navigate = useNavigate()
+
     return <>
         <h2>Walkers</h2>
         {
             filteredWalkers.map(w => {
-                return <ul key={w.id}>
+                return <>
+                <ul key={w.id}>
                     {w.name}
                 </ul>
+                <Button
+                onClick={() => navigate(`/assignnewdog/${w.id}`)}>
+                Add Dog
+                </Button>
+                </>
             })
         }
         <FormGroup>
             <Label for="cityToFilterBy">
                 Looking for a walker in a specific city?
             </Label>
-            <Input
+            <select
                 id="cityToFilterBy"
                 name="cityFilter"
                 type="select"
+                placeholder="Select a city here:"
                 onChange={(e) => {
                     const cityIdToFilterBy = parseInt(e.target.value)
                     setCityId(cityIdToFilterBy)
                 }}
             >
                 <option
-                value={null}>
-                    Pick a city from this list:
+                value=""
+                disabled
+                selected>
+                Select a city here:
                 </option>
                 {
                     cities.map(c => {
@@ -56,7 +68,7 @@ export const Walkers = () => {
                         </option>
                     })
                 }
-            </Input>
+            </select>
         </FormGroup>
     </>
 }

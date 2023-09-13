@@ -42,3 +42,15 @@ export const getWalkersByCity = async (cityId) => {
   const data = await res.json();
   return data;
 }
+
+export const getAvailableDogsByWalkerId = async (walkerId) => {
+  const res = await fetch(`/api/assignnewdog/${walkerId}`);
+  const data = await res.json();
+  return data;
+}
+
+export const assignWalkerToDog = async (dogId, walkerId) => {
+  await fetch(`/api/dogs/${dogId}/assign/${walkerId}`, {
+    method: "POST",
+  });
+}
